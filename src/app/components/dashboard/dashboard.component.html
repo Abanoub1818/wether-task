@@ -1,0 +1,197 @@
+<div *ngFor="let item of selected; index as i">
+  <h2>Table For {{data[i].Country}}</h2>
+  <p-table
+    *ngIf="bool"
+    [value]="item"
+    dataKey="id"
+    #dt
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [loading]="loading"
+    [paginator]="true"
+    styleClass="p-datatable-reponsive"
+    [loading]="loading"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [filterDelay]="0"
+    [globalFilterFields]="[
+      'date',
+      'avgtempC',
+      'avgtempF',
+      'maxtempC',
+      'maxtempF',
+      'mintempC',
+      'mintempF',
+      'sunHour'
+    ]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="date">
+          <div class="flex justify-content-between align-items-center">
+            Date
+            <p-sortIcon field="date"></p-sortIcon>
+            <p-columnFilter
+              type="text"
+              field="date"
+              display="menu"
+              class="ml-auto"
+            ></p-columnFilter>
+          </div>
+        </th>
+
+        <th pSortableColumn="avgtempC">
+          <div class="flex justify-content-between align-items-center">
+            AVG Temp C
+            <p-sortIcon field="avgtempC"></p-sortIcon>
+            <p-columnFilter
+              type="text"
+              field="avgtempC"
+              display="menu"
+              class="ml-auto"
+            ></p-columnFilter>
+          </div>
+        </th>
+
+        <th pSortableColumn="avgtempF">
+          <div class="p-d-flex p-jc-between p-ai-center">
+            Avg Temp F
+            <p-sortIcon field="avgtempF"></p-sortIcon>
+            <p-columnFilter
+              type="date"
+              field="avgtempF"
+              display="menu"
+              class="p-ml-auto"
+            ></p-columnFilter>
+          </div>
+        </th>
+
+        <th pSortableColumn="maxtempC">
+          <div class="flex justify-content-between align-items-center">
+            Max Temp C
+            <p-sortIcon field="maxtempC"></p-sortIcon>
+            <p-columnFilter
+              type="text"
+              field="maxtempC"
+              display="menu"
+              class="ml-auto"
+            ></p-columnFilter>
+          </div>
+        </th>
+
+        <th pSortableColumn="maxtempF">
+          <div class="flex justify-content-between align-items-center">
+            Max Temp F
+            <p-sortIcon field="maxtempF"></p-sortIcon>
+            <p-columnFilter
+              type="text"
+              field="maxtempF"
+              display="menu"
+              class="ml-auto"
+            ></p-columnFilter>
+          </div>
+        </th>
+
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            Min Temp F
+            <p-sortIcon field="mintempF"></p-sortIcon>
+            <p-columnFilter
+              type="text"
+              field="mintempF"
+              display="menu"
+              class="ml-auto"
+            ></p-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            Min Temp C
+            <p-sortIcon field="mintempC"></p-sortIcon>
+            <p-columnFilter
+              type="text"
+              field="mintempC"
+              display="menu"
+              class="ml-auto"
+            ></p-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            Sun Hour
+            <p-sortIcon field="sunHour"></p-sortIcon>
+            <p-columnFilter
+              type="text"
+              field="sunHour"
+              display="menu"
+              class="ml-auto"
+            ></p-columnFilter>
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-customer >
+      <tr class="p-selectable-row">
+        <td>
+          <span class="p-column-title">Date</span>
+          {{ customer.date }}
+        </td>
+        <td>
+          <span class="p-column-title">AVG Temp C</span>
+          {{ customer.avgtempC }}
+        </td>
+
+        <td>
+          <span class="p-column-title">Avg Temp F</span>
+          {{ customer.avgtempF }}
+        </td>
+        <td>
+          <span class="p-column-title">Max Temp C</span>
+          {{ customer.maxtempC }}
+        </td>
+
+        <td>
+          <span class="p-column-title">Max Temp F</span>
+          {{ customer.maxtempF }}
+        </td>
+
+        <td>
+          <span class="p-column-title">Min Temp C</span>
+          {{ customer.mintempC }}
+        </td>
+
+        <td>
+          <span class="p-column-title">Min Temp F</span>
+          {{ customer.mintempC }}
+        </td>
+        <td>
+          <span class="p-column-title">Sun Hour</span>
+          {{ customer.sunHour }}
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td style="text-align: center; font-weight: bold" colspan="8">
+          No Visits found.
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div style="display: flex">
+  <div>
+    <h2 style="width: 80%; margin: 0 auto" *ngIf="bool">
+      Bar Chart For Selected Country
+    </h2>
+    <figure
+      style="width: 80%; margin: 0 auto"
+      [hidden]="!bool"
+      id="bar"
+    ></figure>
+  </div>
+</div>
+
+<h2 *ngIf="!bool">There is no selected country</h2>
+
